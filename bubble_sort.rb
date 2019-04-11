@@ -13,15 +13,48 @@ def b_sort(arr)
   return arr
 end
 
-puts "Say the ammount of values to sort just can be number."
-num_value = gets.chomp.to_i
-i = 0
-arr = Array.new
-while i < num_value do
-  puts "Add the number for position #{i}"
-  num = gets.chomp.to_i
-  arr[i] = num
-  i += 1
+def bubble_sort_by(arr)
+  swa = false
+  while !swa
+    swa = true
+    for i in 0...((arr.length) - 1)
+      if yield(arr[i], arr[i + 1]) > 0
+        arr[i], arr[i + 1] = arr [i + 1], arr[i]
+        swa = false
+      end
+    end
+  end
+  return arr
 end
-res = b_sort(arr)
-puts "Your values in order are  #{res}"
+
+puts "Do you want to sort a string press 1 or a number press 2"
+choose = gets.chomp.to_i
+if choose == 1
+  puts "Say the ammount of values to sort just can be number."
+  num_value = gets.chomp.to_i
+  i = 0
+  arr = Array.new
+  while i < num_value do
+    puts "Add the number for position #{i}"
+    num = gets.chomp.to_s
+    arr[i] = num
+    i += 1
+  end
+  res = bubble_sort_by(arr) { |left, right| left.length - right.length }
+  puts "Your values in order are  #{res}"
+elsif choose == 2
+  puts "Say the ammount of values to sort just can be number."
+  num_value = gets.chomp.to_i
+  i = 0
+  arr = Array.new
+  while i < num_value do
+    puts "Add the number for position #{i}"
+    num = gets.chomp.to_i
+    arr[i] = num
+    i += 1
+  end
+  res = b_sort(arr)
+  puts "Your values in order are  #{res}"
+else
+  puts "Wrong choise"
+end
