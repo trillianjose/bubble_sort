@@ -13,24 +13,26 @@ def b_sort(arr)
   return arr
 end
 
-def bubble_sort_by(arr)
-  swa = false
-  while !swa
-    swa = true
-    for i in 0...((arr.length) - 1)
-      if yield(arr[i], arr[i + 1]) > 0
-        arr[i], arr[i + 1] = arr [i + 1], arr[i]
-        swa = false
-      end
+def bubble_sort_by(arr, &block)
+    swap = true
+    while swap
+        swap = false
+        arr.each_with_index do |num, i|
+            if i + 1 == arr.length
+                break
+            elsif yield(arr[i], arr[i + 1]) > 0
+                arr[i], arr[i + 1] = arr[i + 1], arr[i]
+                swap = true
+            end
+        end
     end
-  end
-  return arr
+    return arr
 end
 
 puts "Do you want to sort a string press 1 or a number press 2"
 choose = gets.chomp.to_i
 if choose == 1
-  puts "Say the ammount of values to sort just can be number."
+  puts "Say the ammount of values to sort just can be a String."
   num_value = gets.chomp.to_i
   i = 0
   arr = Array.new
