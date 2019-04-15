@@ -15,7 +15,6 @@ end
 
 def bubble_sort_by(arr, &block)
   if block_given?
-    arr.map!(&:to_s)
     swap = true
     while swap
       swap = false
