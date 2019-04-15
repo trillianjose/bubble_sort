@@ -14,20 +14,27 @@ def b_sort(arr)
 end
 
 def bubble_sort_by(arr, &block)
+  if block_given?
+    arr.map!(&:to_s)
     swap = true
     while swap
-        swap = false
-        arr.each_with_index do |num, i|
-            if i + 1 == arr.length
-                break
-            elsif yield(arr[i], arr[i + 1]) > 0
-                arr[i], arr[i + 1] = arr[i + 1], arr[i]
-                swap = true
-            end
+      swap = false
+      arr.each_with_index do |num, i|
+        if i + 1 == arr.length
+          break
+        elsif yield(arr[i], arr[i + 1]) > 0
+          arr[i], arr[i + 1] = arr[i + 1], arr[i]
+          swap = true
         end
+      end
     end
-    return arr
+  else
+    b_sort(arr)
+  end
+
+  return arr
 end
+
 
 puts "Do you want to sort a string press 1 or a number press 2"
 choose = gets.chomp.to_i
